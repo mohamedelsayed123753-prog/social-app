@@ -1,0 +1,65 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+
+@theme {
+  --font-sans: "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-gray-50 text-gray-900;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] rounded-2xl;
+  }
+  
+  .glass-nav {
+    @apply bg-white/70 backdrop-blur-lg border-b border-white/50 shadow-sm;
+  }
+
+  .animated-gradient-bg {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+  }
+
+  .soft-shadow {
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600;
+  }
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes slideUpFade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}

@@ -4,14 +4,18 @@ import { Button } from "@heroui/react";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // إضافة حالة للقائمة
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.error("Error parsing user from localStorage", e);
+      }
     }
   }, []);
 
@@ -29,14 +33,12 @@ export default function Navbar() {
         SocialApp
       </Link>
 
-      {/* زر القائمة للشاشات الصغيرة */}
       <button className="md:hidden text-gray-600" onClick={() => setIsMenuOpen(!isMenuOpen)}>
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16m-7 6h7"} />
         </svg>
       </button>
 
-      {/* الروابط: تختفي في الموبايل وتظهر في md وما فوق */}
       <div className={`absolute md:relative top-full left-0 w-full md:w-auto bg-white/90 md:bg-transparent backdrop-blur-md md:backdrop-blur-none p-6 md:p-0 flex flex-col md:flex-row items-center gap-4 transition-all duration-300 ${isMenuOpen ? "flex" : "hidden md:flex"}`}>
         {user ? (
           <>
